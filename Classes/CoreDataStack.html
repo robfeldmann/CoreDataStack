@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CoreDataStack Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/CoreDataStack" class="dashAnchor"></a>
+    <a title="CoreDataStack Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">BNRCoreDataStack Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">BNRCoreDataStack Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CoreDataStack Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/CoreDataStack.html">CoreDataStack</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CoreDataStackError.html">CoreDataStackError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSManagedObjectContext.html">NSManagedObjectContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/NSPersistentStoreCoordinator.html">NSPersistentStoreCoordinator</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CoreDataStack</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">CoreDataStack</span></code></pre>
+
+                </div>
+              </div>
+            <p>Three layer CoreData stack comprised of:</p>
+
+<ul>
+<li>A primary background queue context with a persistent store coordinator</li>
+<li>A main queue context that is a child of the primary queue</li>
+<li>A method for spawning many background worker contexts that are children of the main queue context</li>
+</ul>
+
+<p>Calling save() on any NSMangedObjectContext belonging to the stack will automatically bubble the changes all the way to the NSPersistentStore</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC16BNRCoreDataStack13CoreDataStack19privateQueueContextCSo22NSManagedObjectContext"></a>
+                    <a name="//apple_ref/swift/Property/privateQueueContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC16BNRCoreDataStack13CoreDataStack19privateQueueContextCSo22NSManagedObjectContext">privateQueueContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Primary persisting background managed object context. This is the top level context that possess an
+<a href="../Extensions/NSPersistentStoreCoordinator.html">NSPersistentStoreCoordinator</a> and saves changes to disk on a background queue.</p>
+
+<p>Fetching, Inserting, Deleting or Updating managed objects should occur on a child of this context rather than directly.</p>
+
+<p>NSBatchUpdateRequest and NSAsynchronousFetchRequest require a context with a persistent store connected directly,
+if this was not the case this context would be marked private.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">privateQueueContext</span><span class="p">:</span> <span class="kt">NSManagedObjectContext</span> <span class="o">=</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC16BNRCoreDataStack13CoreDataStack16mainQueueContextCSo22NSManagedObjectContext"></a>
+                    <a name="//apple_ref/swift/Property/mainQueueContext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC16BNRCoreDataStack13CoreDataStack16mainQueueContextCSo22NSManagedObjectContext">mainQueueContext</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The main queue context for any work that will be performed on the main queue.
+Its parent context is the primary private queue context that persist the data to disk.
+Making a save() call on this context will automatically trigger a save on its parent via NSNotification.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">mainQueueContext</span><span class="p">:</span> <span class="kt">NSManagedObjectContext</span> <span class="o">=</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
+                <a href="#/Lifecycle">
+                  <h3 class="section-name">Lifecycle</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC16BNRCoreDataStack13CoreDataStack20constructSQLiteStackFMS0_FT13withModelNameSS8inBundleCSo8NSBundle12withStoreURLGSqCSo5NSURL_8callbackFOS0_11SetupResultT__T_"></a>
+                    <a name="//apple_ref/swift/Method/constructSQLiteStack(withModelName:inBundle:withStoreURL:callback:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC16BNRCoreDataStack13CoreDataStack20constructSQLiteStackFMS0_FT13withModelNameSS8inBundleCSo8NSBundle12withStoreURLGSqCSo5NSURL_8callbackFOS0_11SetupResultT__T_">constructSQLiteStack(withModelName:inBundle:withStoreURL:callback:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a SQLite backed CoreData stack for a given model in the supplied NSBundle.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">constructSQLiteStack</span><span class="p">(</span><span class="n">withModelName</span> <span class="nv">modelName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+        <span class="n">inBundle</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kt">NSBundle</span> <span class="o">=</span> <span class="kt">NSBundle</span><span class="o">.</span><span class="nf">mainBundle</span><span class="p">(),</span>
+        <span class="n">withStoreURL</span> <span class="nv">desiredStoreURL</span><span class="p">:</span> <span class="kt">NSURL</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+        <span class="nv">callback</span><span class="p">:</span> <span class="kt">CoreDataStackSetupCallback</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modelName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Base name of the xcdatamodel file.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inBundle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>NSBundle that contains the XCDataModel. Default value is mainBundle()</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>withStoreURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional URL to use for storing the SQLite file. Defaults to <q>\(modelName).sqlite</q> in the Documents directory.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>callback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The SQLite persistent store coordinator will be setup asynchronously. This callback will be passed either an initialized CoreDataStack object or an ErrorType value.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC16BNRCoreDataStack13CoreDataStack22constructInMemoryStackFMS0_FzT13withModelNameSS8inBundleCSo8NSBundle_S0_"></a>
+                    <a name="//apple_ref/swift/Method/constructInMemoryStack(withModelName:inBundle:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC16BNRCoreDataStack13CoreDataStack22constructInMemoryStackFMS0_FzT13withModelNameSS8inBundleCSo8NSBundle_S0_">constructInMemoryStack(withModelName:inBundle:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an in-memory Core Data stack for a given model in the supplied NSBundle.</p>
+
+<p>This stack is configured with the same concurrency and persistence model as the SQLite stack, but everything is in-memory.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">constructInMemoryStack</span><span class="p">(</span><span class="n">withModelName</span> <span class="nv">modelName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+        <span class="n">inBundle</span> <span class="nv">bundle</span><span class="p">:</span> <span class="kt">NSBundle</span> <span class="o">=</span> <span class="kt">NSBundle</span><span class="o">.</span><span class="nf">mainBundle</span><span class="p">())</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">CoreDataStack</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>modelName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Base name of the xcdatamodel file.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inBundle</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>NSBundle that contains the XCDataModel. Default value is mainBundle()</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Operation%20Result%20Types"></a>
+                <a name="//apple_ref/swift/Section/Operation Result Types" class="dashAnchor"></a>
+                <a href="#/Operation%20Result%20Types">
+                  <h3 class="section-name">Operation Result Types</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC16BNRCoreDataStack13CoreDataStack17CoordinatorResult"></a>
+                    <a name="//apple_ref/swift/Enum/CoordinatorResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC16BNRCoreDataStack13CoreDataStack17CoordinatorResult">CoordinatorResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Result containing either an instance of <a href="../Extensions/NSPersistentStoreCoordinator.html">NSPersistentStoreCoordinator</a> or ErrorType</p>
+
+                        <a href="../Classes/CoreDataStack/CoordinatorResult.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CoordinatorResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC16BNRCoreDataStack13CoreDataStack18BatchContextResult"></a>
+                    <a name="//apple_ref/swift/Enum/BatchContextResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC16BNRCoreDataStack13CoreDataStack18BatchContextResult">BatchContextResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Result containing either an instance of <a href="../Extensions/NSManagedObjectContext.html">NSManagedObjectContext</a> or ErrorType</p>
+
+                        <a href="../Classes/CoreDataStack/BatchContextResult.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">BatchContextResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC16BNRCoreDataStack13CoreDataStack11SetupResult"></a>
+                    <a name="//apple_ref/swift/Enum/SetupResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC16BNRCoreDataStack13CoreDataStack11SetupResult">SetupResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Result containing either an instance of <a href="../Classes/CoreDataStack.html">CoreDataStack</a> or ErrorType</p>
+
+                        <a href="../Classes/CoreDataStack/SetupResult.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SetupResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:OC16BNRCoreDataStack13CoreDataStack13SuccessResult"></a>
+                    <a name="//apple_ref/swift/Enum/SuccessResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:OC16BNRCoreDataStack13CoreDataStack13SuccessResult">SuccessResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Result of void representing success or an instance of ErrorType</p>
+
+                        <a href="../Classes/CoreDataStack/SuccessResult.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">SuccessResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC16BNRCoreDataStack13CoreDataStack10resetStoreFS0_FFOS0_13SuccessResultT_T_"></a>
+                    <a name="//apple_ref/swift/Method/resetStore(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC16BNRCoreDataStack13CoreDataStack10resetStoreFS0_FFOS0_13SuccessResultT_T_">resetStore(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This function resets the persistent store connected to the coordinator.
+For SQLite based stacks, this function will also remove the SQLite store from disk.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">resetStore</span><span class="p">(</span><span class="nv">resetCallback</span><span class="p">:</span> <span class="kt">CoreDataStackStoreResetCallback</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resetCallback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A callback with a Success or an ErrorType value with the error</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC16BNRCoreDataStack13CoreDataStack22newBackgroundWorkerMOCFS0_FT_CSo22NSManagedObjectContext"></a>
+                    <a name="//apple_ref/swift/Method/newBackgroundWorkerMOC()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC16BNRCoreDataStack13CoreDataStack22newBackgroundWorkerMOCFS0_FT_CSo22NSManagedObjectContext">newBackgroundWorkerMOC()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a new background worker managed object context as a child of the main queue context.</p>
+
+<p>Calling save() on this managed object context will automatically trigger a save on its parent context via NSNotification observing.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newBackgroundWorkerMOC</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSManagedObjectContext</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><a href="../Extensions/NSManagedObjectContext.html">NSManagedObjectContext</a> The new worker context.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC16BNRCoreDataStack13CoreDataStack24newBatchOperationContextFS0_FFOS0_18BatchContextResultT_T_"></a>
+                    <a name="//apple_ref/swift/Method/newBatchOperationContext(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC16BNRCoreDataStack13CoreDataStack24newBatchOperationContextFS0_FFOS0_18BatchContextResultT_T_">newBatchOperationContext(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a new background managed object context connected to
+a discrete persistent store coordinator created with the same store used by the stack in construction.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">newBatchOperationContext</span><span class="p">(</span><span class="nv">setupCallback</span><span class="p">:</span> <span class="kt">CoreDataStackBatchMOCCallback</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>setupCallback</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A callback with either the new managed object context or an ErrorType value with the error</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="https://github.com/bignerdranch/CoreDataStack" target="_blank" rel="external">Robert Edwards and Brian Hardy</a>. All rights reserved. (Last updated: 2015-11-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

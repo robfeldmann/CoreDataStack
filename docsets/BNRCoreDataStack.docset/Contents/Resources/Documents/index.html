@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BNRCoreDataStack  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a title="BNRCoreDataStack  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">BNRCoreDataStack Docs</a> (100% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">BNRCoreDataStack Reference</a>
+        <img id="carat" src="img/carat.png" />
+        BNRCoreDataStack  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/CoreDataStack.html">CoreDataStack</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/CoreDataStackError.html">CoreDataStackError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/NSManagedObjectContext.html">NSManagedObjectContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/NSPersistentStoreCoordinator.html">NSPersistentStoreCoordinator</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <a href='#bnr_core_data_stack' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='bnr_core_data_stack'>BNR Core Data Stack</h1>
+
+<p><a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible"></a>
+<a href="http://cocoapods.org"><img src="https://img.shields.io/cocoapods/v/BNRCoreDataStack.svg" alt="Cocoapods Compatible"></a>
+<a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="GitHub license"></a>
+<a href="https://travis-ci.org/bignerdranch/CoreDataStack"><img src="https://travis-ci.org/bignerdranch/CoreDataStack.svg" alt="Build Status"></a></p>
+
+<p>The BNR Core Data Stack is a small framework, written in Swift, that makes it easy to quickly set up a multi-threading ready Core Data stack.</p>
+
+<p>For more details on the design methodology see: <a href="https://www.bignerdranch.com/blog/introducing-the-big-nerd-ranch-core-data-stack/">Introducing the Big Nerd Ranch Core Data Stack</a></p>
+
+<p>For complete source documentation see: <a href="http://bignerdranch.github.io/CoreDataStack/index.html">Documentation</a></p>
+<a href='#minimum_requirements' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='minimum_requirements'>Minimum Requirements</h2>
+
+<ul>
+<li>iOS 8.0</li>
+<li>Xcode 7.0</li>
+<li>Swift 2.0</li>
+</ul>
+<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+<a href='#a_href_https_github_com_carthage_carthage_carthage_a' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='a_href_https_github_com_carthage_carthage_carthage_a'><a href="https://github.com/Carthage/Carthage">Carthage</a></h3>
+
+<p>Add the following to your Cartfile:</p>
+<pre class="highlight plaintext"><code>github "BigNerdRanch/CoreDataStack"
+</code></pre>
+
+<p>Then run <code>carthage update</code>.</p>
+
+<p>Follow the current instructions in <a href="https://github.com/Carthage/Carthage/blob/master/README.md">Carthage&rsquo;s README</a>
+for up to date installation instructions.</p>
+<a href='#a_href_http_cocoapods_org_cocoapods_a' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='a_href_http_cocoapods_org_cocoapods_a'><a href="http://cocoapods.org">CocoaPods</a></h3>
+
+<p>Add the following to your <a href="http://guides.cocoapods.org/using/the-podfile.html">Podfile</a>:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'BNRCoreDataStack'</span>
+</code></pre>
+
+<p>You will also need to make sure you&rsquo;re opting into using frameworks:</p>
+<pre class="highlight ruby"><code><span class="n">use_frameworks!</span>
+</code></pre>
+
+<p>Then run <code>pod install</code>.</p>
+<a href='#a_id_usage_a_usage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='a_id_usage_a_usage'><a id="usage"></a> Usage</h2>
+<a href='#constructing_your_stack' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='constructing_your_stack'>Constructing Your Stack</h3>
+<a href='#import_framework' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='import_framework'>Import Framework</h4>
+
+<p>via: Carthage</p>
+<pre class="highlight plaintext"><code>import CoreDataStack
+</code></pre>
+
+<p>or via CocoaPods</p>
+<pre class="highlight plaintext"><code>import BNRCoreDataStack
+</code></pre>
+<a href='#a_id_sqlite_construct_a_standard_sqlite_backed' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='a_id_sqlite_construct_a_standard_sqlite_backed'><a id="sqlite_construct"></a> Standard SQLite Backed</h4>
+<pre class="highlight plaintext"><code>CoreDataStack.constructSQLiteStack(withModelName: "TestModel") { result in
+    switch result {
+    case .Success(let stack):
+        self.myCoreDataStack = stack
+        print("Success")
+    case .Failure(let error):
+        print(error)
+    }
+}
+</code></pre>
+<a href='#in_memory_only' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='in_memory_only'>In-Memory Only</h4>
+<pre class="highlight plaintext"><code>do {
+    myCoreDataStack = try CoreDataStack.constructInMemoryStack(withModelName: "TestModel")
+} catch {
+    print(error)
+}
+</code></pre>
+<a href='#working_with_managed_object_contexts' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='working_with_managed_object_contexts'>Working with Managed Object Contexts</h3>
+<a href='#a_id_persisting_moc_a_private_persisting_coordinator_connected_context' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='a_id_persisting_moc_a_private_persisting_coordinator_connected_context'><a id="persisting_moc"></a> Private Persisting/Coordinator Connected Context</h4>
+
+<p>This is the root level context with a <code>PrivateQueueConcurrencyType</code> for asynchronous saving to the <code>NSPersistentStore</code>. Fetching, Inserting, Deleting or Updating managed objects should occur on a child of this context rather than directly.</p>
+<pre class="highlight plaintext"><code>myCoreDataStack.privateQueueContext
+</code></pre>
+<a href='#a_id_main_moc_a_main_queue_ui_layer_context' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='a_id_main_moc_a_main_queue_ui_layer_context'><a id="main_moc"></a> Main Queue / UI Layer Context</h4>
+
+<p>This is our <code>MainQueueConcurrencyType</code> context with its parent being the <a href="#persisting_moc">private persisting context</a>. This context should be used for any main queue or UI related tasks. Examples include setting up an <code>NSFetchedResultsController</code>, performing quick fetches, making UI related updates like a bookmark or favoriting an object. Performing a save() call on this context will automatically trigger a save on its parent via <code>NSNotification</code>.</p>
+<pre class="highlight plaintext"><code>myCoreDataStack.mainQueueContext
+</code></pre>
+<a href='#a_id_worker_moc_a_creating_a_worker_context' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='a_id_worker_moc_a_creating_a_worker_context'><a id="worker_moc"></a> Creating a Worker Context</h4>
+
+<p>Calling <code>newBackgroundWorkerMOC()</code> will vend us a <code>PrivateQueueConcurrencyType</code> child context of the <a href="#main_moc">main queue context</a>. Useful for any longer running task, such as inserting or updating data from a web service. Calling save() on this managed object context will automatically trigger a save on its parent context via <code>NSNotification</code>.</p>
+<pre class="highlight plaintext"><code>let workerContext = myCoreDataStack.newBackgroundWorkerMOC()
+workerContext.performBlock() {
+    // fetch data from web-service
+    // update local data
+    workerContext.saveContext()
+}
+</code></pre>
+<a href='#large_import_operation_context' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='large_import_operation_context'>Large Import Operation Context</h4>
+
+<p>In most cases, offloading your longer running work to a <a href="#worker_moc">background worker context</a> will be sufficient in alleviating performance woes. If you find yourself inserting or updating thousands of objects then perhaps opting for a stand alone managed object context with a discrete persistent store like so would be the best option:</p>
+<pre class="highlight plaintext"><code>myCoreDataStack.newBatchOperationContext() { result in
+    switch result {
+    case .Success(let batchContext):
+        // my big import operation
+    case .Failure(let error):
+        print(error)
+    }
+}
+</code></pre>
+<a href='#resetting_the_stack' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='resetting_the_stack'>Resetting The Stack</h3>
+
+<p>At times it can be necessary to completely reset your Core Data store and remove the file from disk, for example when a user logs out of your application. An instance of <code>CoreDataStack</code> can be reset by using the function <code>resetStore(resetCallback: CoreDataStackStoreResetCallback)</code>.</p>
+<pre class="highlight plaintext"><code>myCoreDataStack.resetStore() { result in
+    switch result {
+    case .Success:
+        // proceed with fresh Core Data Stack
+    case .Failure(let error):
+        print(error)
+    }
+}
+</code></pre>
+<a href='#debugging_tips' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='debugging_tips'>Debugging Tips</h2>
+
+<p>To validate that you are honoring all of the threading rules it&rsquo;s common to add the following to a project scheme under <code>Run &gt; Arguments &gt; Arguments Passed On Launch</code>.</p>
+<pre class="highlight plaintext"><code>-com.apple.CoreData.ConcurrencyDebug 1
+</code></pre>
+
+<p>This will throw an exception if you happen to break a threading rule. For more on setting up Launch Arguments check out this <a href="http://nshipster.com/launch-arguments-and-environment-variables/">article by NSHipster</a>.</p>
+<a href='#about' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='about'>About</h2>
+
+<p><a href="http://bignerdranch.com"><img src="./Resources/logo.png" alt="Big Nerd Ranch"></a></p>
+
+<ul>
+<li>We <a href="https://www.bignerdranch.com/we-develop/">Develop</a> custom apps for clients around the world.</li>
+<li>We <a href="https://www.bignerdranch.com/we-teach/">Teach</a> immersive development bootcamps.</li>
+<li>We <a href="https://www.bignerdranch.com/we-write/">Write</a> best-selling Big Nerd Ranch Guides.</li>
+</ul>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="https://github.com/bignerdranch/CoreDataStack" target="_blank" rel="external">Robert Edwards and Brian Hardy</a>. All rights reserved. (Last updated: 2015-11-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
