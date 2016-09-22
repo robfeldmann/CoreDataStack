@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D4C7693D1D94532300C1CA93 /* CoreDataStackWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = D4C7693B1D94532300C1CA93 /* CoreDataStackWatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4C769521D945FF000C1CA93 /* CoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E40CFCCD1C80BEB200CBDFF2 /* CoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D4C769561D94616A00C1CA93 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FED71C80B04A003DE8FF /* CoreDataStack.swift */; };
+		D4C769571D9461C300C1CA93 /* CoreDataModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FED61C80B04A003DE8FF /* CoreDataModelable.swift */; };
+		D4C769581D9461C700C1CA93 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FEDC1C80B05D003DE8FF /* NSManagedObjectContext+AsyncHelpers.swift */; };
+		D4C769591D9461C700C1CA93 /* NSManagedObjectContext+SaveHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FEDD1C80B05D003DE8FF /* NSManagedObjectContext+SaveHelpers.swift */; };
+		D4C7695A1D9461C700C1CA93 /* NSPersistentStoreCoordinator+AsyncHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FEDE1C80B05D003DE8FF /* NSPersistentStoreCoordinator+AsyncHelpers.swift */; };
+		D4C7695B1D9461C700C1CA93 /* NSPersistentStoreCoordinator+SQLiteHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FEDF1C80B05D003DE8FF /* NSPersistentStoreCoordinator+SQLiteHelpers.swift */; };
+		D4C7695C1D9461CC00C1CA93 /* EntityMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FEE81C80B06D003DE8FF /* EntityMonitor.swift */; };
+		D4C7695D1D9461CC00C1CA93 /* FetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E440FEE91C80B06D003DE8FF /* FetchedResultsController.swift */; };
 		E40CFCCE1C80BEB200CBDFF2 /* CoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E40CFCCD1C80BEB200CBDFF2 /* CoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E40CFCD01C80BF4600CBDFF2 /* CoreDataStack.h in Headers */ = {isa = PBXBuildFile; fileRef = E40CFCCD1C80BEB200CBDFF2 /* CoreDataStack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E40CFCE31C80C4FC00CBDFF2 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40CFCD91C80C4E700CBDFF2 /* Author.swift */; };
@@ -115,9 +123,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D4C769391D94532300C1CA93 /* CoreDataStackWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStackWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4C7693B1D94532300C1CA93 /* CoreDataStackWatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataStackWatch.h; sourceTree = "<group>"; };
-		D4C7693C1D94532300C1CA93 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4C769391D94532300C1CA93 /* CoreDataStack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CoreDataStack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E40CFCCD1C80BEB200CBDFF2 /* CoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataStack.h; path = Sources/CoreDataStack.h; sourceTree = SOURCE_ROOT; };
 		E40CFCD71C80C4DE00CBDFF2 /* TestModel.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = TestModel.sqlite; path = "Sample Model/TestModel.sqlite"; sourceTree = SOURCE_ROOT; };
 		E40CFCD91C80C4E700CBDFF2 /* Author.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Author.swift; path = "Sample Model/Author.swift"; sourceTree = "<group>"; };
@@ -233,15 +239,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D4C7693A1D94532300C1CA93 /* CoreDataStackWatch */ = {
-			isa = PBXGroup;
-			children = (
-				D4C7693B1D94532300C1CA93 /* CoreDataStackWatch.h */,
-				D4C7693C1D94532300C1CA93 /* Info.plist */,
-			);
-			path = CoreDataStackWatch;
-			sourceTree = "<group>";
-		};
 		E43713F31C86474F009C3B39 /* OSX Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +343,6 @@
 				E4C9BC3C1AEA848600A6BD1B /* Tests */,
 				E4B99C671B740321005B7E1A /* Example */,
 				E4396EDA1C80B46D004BC954 /* Sample Model */,
-				D4C7693A1D94532300C1CA93 /* CoreDataStackWatch */,
 				E4C9BC2E1AEA848600A6BD1B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -361,7 +357,7 @@
 				E45013321C23572400ADC83B /* CoreDataStackTVTests.xctest */,
 				E43713D31C8646AC009C3B39 /* CoreDataStack.framework */,
 				E43713DC1C8646AC009C3B39 /* CoreDataStackOSXTests.xctest */,
-				D4C769391D94532300C1CA93 /* CoreDataStackWatch.framework */,
+				D4C769391D94532300C1CA93 /* CoreDataStack.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -437,7 +433,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D4C7693D1D94532300C1CA93 /* CoreDataStackWatch.h in Headers */,
+				D4C769521D945FF000C1CA93 /* CoreDataStack.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,7 +479,7 @@
 			);
 			name = CoreDataStackWatch;
 			productName = CoreDataStackWatch;
-			productReference = D4C769391D94532300C1CA93 /* CoreDataStackWatch.framework */;
+			productReference = D4C769391D94532300C1CA93 /* CoreDataStack.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		E43713D21C8646AC009C3B39 /* CoreDataStackOSX */ = {
@@ -624,6 +620,7 @@
 				TargetAttributes = {
 					D4C769381D94532300C1CA93 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					E43713D21C8646AC009C3B39 = {
@@ -747,6 +744,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C7695A1D9461C700C1CA93 /* NSPersistentStoreCoordinator+AsyncHelpers.swift in Sources */,
+				D4C7695C1D9461CC00C1CA93 /* EntityMonitor.swift in Sources */,
+				D4C7695D1D9461CC00C1CA93 /* FetchedResultsController.swift in Sources */,
+				D4C769571D9461C300C1CA93 /* CoreDataModelable.swift in Sources */,
+				D4C769561D94616A00C1CA93 /* CoreDataStack.swift in Sources */,
+				D4C769591D9461C700C1CA93 /* NSManagedObjectContext+SaveHelpers.swift in Sources */,
+				D4C7695B1D9461C700C1CA93 /* NSPersistentStoreCoordinator+SQLiteHelpers.swift in Sources */,
+				D4C769581D9461C700C1CA93 /* NSManagedObjectContext+AsyncHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -916,16 +921,16 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CoreDataStackWatch/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.CoreDataStackWatch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CoreDataStack;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -943,15 +948,15 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CoreDataStackWatch/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bignerdranch.CoreDataStackWatch;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CoreDataStack;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1173,6 +1178,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1219,6 +1225,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1312,6 +1319,7 @@
 				D4C7693F1D94532300C1CA93 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E43713E81C8646AC009C3B39 /* Build configuration list for PBXNativeTarget "CoreDataStackOSX" */ = {
 			isa = XCConfigurationList;
