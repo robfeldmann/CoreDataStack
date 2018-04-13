@@ -20,11 +20,10 @@ class Book: NSManagedObject {
     var firstInitial: String? {
         willAccessValue(forKey: "title")
         defer { didAccessValue(forKey: "title") }
-        guard let title = title,
-            let first = title.characters.first else {
-                return nil
+        guard let title = title else {
+            return nil
         }
-        let initial = String(first)
+        let initial = String(title.prefix(1))
 
         return initial
     }
