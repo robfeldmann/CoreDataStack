@@ -278,6 +278,8 @@ import CoreData
                 self = .delete(info: info, index: sectionIndex)
             case .move, .update:
                 preconditionFailure("Invalid section change type reported by NSFetchedResultsController")
+            @unknown default:
+                preconditionFailure()
             }
         }
     }

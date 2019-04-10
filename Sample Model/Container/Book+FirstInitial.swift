@@ -14,7 +14,7 @@ extension Book {
         willAccessValue(forKey: "title")
         defer { didAccessValue(forKey: "title") }
         guard let title = title,
-            let first = title.characters.first else {
+            let first = title.first else {
                 return nil
         }
         let initial = String(first)

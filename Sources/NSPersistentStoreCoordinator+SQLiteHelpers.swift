@@ -15,7 +15,7 @@ public extension NSPersistentStoreCoordinator {
      */
     @available(iOS, introduced: 8.0, deprecated: 10.0, message: "Use NSPersistentStoreDescription")
     @available(OSX, introduced: 10.10, deprecated: 10.12, message: "Use NSPersistentStoreDescription")
-    public static var stockSQLiteStoreOptions: [AnyHashable: Any] {
+    static var stockSQLiteStoreOptions: [AnyHashable: Any] {
         return [
             NSMigratePersistentStoresAutomaticallyOption: true,
             NSInferMappingModelAutomaticallyOption: true,
@@ -34,7 +34,7 @@ public extension NSPersistentStoreCoordinator {
      */
     @available(iOS, introduced: 8.0, deprecated: 10.0, message: "Use NSPersistentContainer")
     @available(OSX, introduced: 10.10, deprecated: 10.12, message: "Use NSPersistentContainer")
-    public class func setupSQLiteBackedCoordinator(_ managedObjectModel: NSManagedObjectModel,
+    class func setupSQLiteBackedCoordinator(_ managedObjectModel: NSManagedObjectModel,
                                                    storeFileURL: URL,
                                                    persistentStoreOptions: [AnyHashable : Any]? = NSPersistentStoreCoordinator.stockSQLiteStoreOptions,
                                                    completion: @escaping (CoreDataStack.CoordinatorResult) -> Void) {

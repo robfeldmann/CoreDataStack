@@ -373,35 +373,35 @@ public extension CoreDataStack {
     // MARK: - Operation Result Types
 
     /// Result containing either an instance of `NSPersistentStoreCoordinator` or `ErrorType`
-    public enum CoordinatorResult {
+    enum CoordinatorResult {
         /// A success case with associated `NSPersistentStoreCoordinator` instance
         case success(NSPersistentStoreCoordinator)
         /// A failure case with associated `ErrorType` instance
         case failure(Swift.Error)
     }
     /// Result containing either an instance of `NSManagedObjectContext` or `ErrorType`
-    public enum BatchContextResult {
+    enum BatchContextResult {
         /// A success case with associated `NSManagedObjectContext` instance
         case success(NSManagedObjectContext)
         /// A failure case with associated `ErrorType` instance
         case failure(Swift.Error)
     }
     /// Result containing either an instance of `CoreDataStack` or `ErrorType`
-    public enum SetupResult {
+    enum SetupResult {
         /// A success case with associated `CoreDataStack` instance
         case success(CoreDataStack)
         /// A failure case with associated `ErrorType` instance
         case failure(Swift.Error)
     }
     /// Result of void representing `success` or an instance of `ErrorType`
-    public enum SuccessResult {
+    enum SuccessResult {
         /// A success case
         case success
         /// A failure case with associated ErrorType instance
         case failure(Swift.Error)
     }
-    public typealias SaveResult = SuccessResult
-    public typealias ResetResult = SuccessResult
+    typealias SaveResult = SuccessResult
+    typealias ResetResult = SuccessResult
 }
 
 public extension CoreDataStack {
@@ -413,7 +413,7 @@ public extension CoreDataStack {
      - parameter on: Optional GCD queue that will be used to dispatch your callback closure. Defaults to background queue used to create the stack.
      - parameter callback: A callback with a `success` or an `ErrorType` value with the error
      */
-    public func resetStore(with persistentStoreOptions: [AnyHashable: Any]? = NSPersistentStoreCoordinator.stockSQLiteStoreOptions,
+    func resetStore(with persistentStoreOptions: [AnyHashable: Any]? = NSPersistentStoreCoordinator.stockSQLiteStoreOptions,
                            on callbackQueue: DispatchQueue? = nil,
                            callback: @escaping StoreResetCallback) {
         let backgroundQueue = DispatchQueue.global(qos: .background)
@@ -507,7 +507,7 @@ public extension CoreDataStack {
 
      - returns: `NSManagedObjectContext` The new worker context.
      */
-    public func newChildContext(type: NSManagedObjectContextConcurrencyType = .privateQueueConcurrencyType,
+    func newChildContext(type: NSManagedObjectContextConcurrencyType = .privateQueueConcurrencyType,
                                 name: String? = "Main Queue Context Child") -> NSManagedObjectContext {
         if type == .mainQueueConcurrencyType && !Thread.isMainThread {
             preconditionFailure("Main thread MOCs must be created on the main thread")
@@ -533,7 +533,7 @@ public extension CoreDataStack {
      - parameter on: Optional GCD queue that will be used to dispatch your callback closure. Defaults to background queue used to create the stack.
      - parameter callback: A callback with either the new `NSManagedObjectContext` or an `ErrorType` value with the error
      */
-    public func newBatchOperationContext(with persistentStoreOptions: [AnyHashable: Any]? = NSPersistentStoreCoordinator.stockSQLiteStoreOptions,
+    func newBatchOperationContext(with persistentStoreOptions: [AnyHashable: Any]? = NSPersistentStoreCoordinator.stockSQLiteStoreOptions,
                                          on callbackQueue: DispatchQueue? = nil,
                                          callback: @escaping BatchContextCallback) {
         let moc = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
@@ -573,7 +573,7 @@ public extension CoreDataStack {
 }
 
 fileprivate extension CoreDataStack {
-    @objc fileprivate func stackMemberContextDidSaveNotification(_ notification: Notification) {
+    @objc func stackMemberContextDidSaveNotification(_ notification: Notification) {
         guard let notificationMOC = notification.object as? NSManagedObjectContext else {
             assertionFailure("Notification posted from an object other than an NSManagedObjectContext")
             return
@@ -590,7 +590,7 @@ fileprivate extension CoreDataStack {
 }
 
 fileprivate extension CoreDataStack {
-    fileprivate static var documentsDirectory: URL? {
+    static var documentsDirectory: URL? {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls.first
     }

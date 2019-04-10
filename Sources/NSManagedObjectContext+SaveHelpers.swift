@@ -22,13 +22,15 @@ public extension NSManagedObjectContext {
 
      - throws: Errors produced by the `save()` function on the `NSManagedObjectContext`
     */
-    public func saveContextAndWait() throws {
+    func saveContextAndWait() throws {
         switch concurrencyType {
         case .confinementConcurrencyType:
             try sharedSaveFlow()
         case .mainQueueConcurrencyType,
              .privateQueueConcurrencyType:
             try performAndWaitOrThrow(sharedSaveFlow)
+        @unknown default:
+            assertionFailure()
         }
     }
 
@@ -38,7 +40,7 @@ public extension NSManagedObjectContext {
 
     - parameter completion: Completion closure with a `SaveResult` to be executed upon the completion of the save operation.
     */
-    public func saveContext(_ completion: CoreDataStackSaveCompletion? = nil) {
+    func saveContext(_ completion: CoreDataStackSaveCompletion? = nil) {
         func saveFlow() {
             do {
                 try sharedSaveFlow()
@@ -54,6 +56,8 @@ public extension NSManagedObjectContext {
         case .privateQueueConcurrencyType,
         .mainQueueConcurrencyType:
             perform(saveFlow)
+        @unknown default:
+            assertionFailure()
         }
     }
 
@@ -64,7 +68,7 @@ public extension NSManagedObjectContext {
 
      - throws: Errors produced by the `save()` function on the `NSManagedObjectContext`
      */
-    public func saveContextToStoreAndWait() throws {
+    func saveContextToStoreAndWait() throws {
         func saveFlow() throws {
             try sharedSaveFlow()
             if let parentContext = parent {
@@ -78,6 +82,8 @@ public extension NSManagedObjectContext {
         case .mainQueueConcurrencyType,
              .privateQueueConcurrencyType:
             try performAndWaitOrThrow(saveFlow)
+        @unknown default:
+            assertionFailure()
         }
     }
 
@@ -89,7 +95,7 @@ public extension NSManagedObjectContext {
     - parameter completion: Completion closure with a `SaveResult` to be executed
         either upon the completion of the top most context's save operation or the first encountered save error.
      */
-    public func saveContextToStore(_ completion: CoreDataStackSaveCompletion? = nil) {
+    func saveContextToStore(_ completion: CoreDataStackSaveCompletion? = nil) {
         func saveFlow() {
             do {
                 try sharedSaveFlow()
@@ -109,6 +115,8 @@ public extension NSManagedObjectContext {
         case .privateQueueConcurrencyType,
              .mainQueueConcurrencyType:
             perform(saveFlow)
+        @unknown default:
+            assertionFailure()
         }
     }
 
